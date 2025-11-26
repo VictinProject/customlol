@@ -1,34 +1,48 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import TeamGenerator from './components/TeamGenerator.jsx'
+import MatchHistory from './components/MatchHistory.jsx'
+import Stats from './components/Stats.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tab, setTab] = useState('teams')
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="app">
+      <header className="app-header">
+        <h1>Custom LoL</h1>
+        <nav className="tabs">
+          <button
+            className={`tab-btn ${tab === 'teams' ? 'active' : ''}`}
+            onClick={() => setTab('teams')}
+          >
+            Génération d'équipes
+          </button>
+          <button
+            className={`tab-btn ${tab === 'history' ? 'active' : ''}`}
+            onClick={() => setTab('history')}
+          >
+            Historique des parties
+          </button>
+          <button
+            className={`tab-btn ${tab === 'stats' ? 'active' : ''}`}
+            onClick={() => setTab('stats')}
+          >
+            Statistiques
+          </button>
+        </nav>
+      </header>
+
+      <main className="app-main fade-in">
+        {tab === 'teams' && <TeamGenerator />}
+        {tab === 'history' && <MatchHistory />}
+        {tab === 'stats' && <Stats />}
+      </main>
+
+      <footer className="app-footer">
+        <small>Les données sont stockées localement dans votre navigateur.</small>
+      </footer>
+    </div>
   )
 }
 
